@@ -42,7 +42,6 @@ class BoardRepresenter:
         # left up diagonal check
         while i >= 0 and j >= 0:
             if self.board[i][j] == 1:
-                print("hi")
                 penalty += 1
                 break
 
@@ -54,7 +53,6 @@ class BoardRepresenter:
         # left down diagonal check
         while i < self.dim and j >= 0:
             if self.board[i][j] == 1:
-                print("bye")
                 penalty += 1
                 break
             i += 1
