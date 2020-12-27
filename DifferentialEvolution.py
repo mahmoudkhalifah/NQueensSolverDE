@@ -43,7 +43,6 @@ class DifferentialEvolution:
         return self.crossover(p4, mutant)
 
     def iterate(self):
-        trial = []
         for i in range(self.NP):
             p4 = self.pg.NPvectors[i]
             [p1, p2, p3] = random.sample(self.pg.NPvectors, 3)
@@ -69,14 +68,14 @@ class DifferentialEvolution:
                 numOfThreads = i
         threads = []
         while len(solutions) == 0 and self.iteration < self.numOfIterations and time.time()-startTime < self.timeLimit:
-            solutions = self.findSolutions()
-            # self.iterate()
             for i in range(0, numOfThreads):
                 threads.insert(i, threading.Thread(self.iterate()))
                 threads[i].start()
             for t in threads:
                 t.join()
+            solutions = self.findSolutions()
+
             self.iteration += 1
-        print(len(solutions),"soultion(s) found in", round(time.time()-startTime,4),"s and", self.iteration, "iterations.")
+        print(len(solutions),"solution(s) found in", round(time.time()-startTime,4),"s and", self.iteration, "iterations.")
         for i in solutions:
             self.br.printBoard(i)
