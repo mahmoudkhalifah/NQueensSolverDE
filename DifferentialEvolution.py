@@ -1,5 +1,7 @@
 import random
+import threading
 import time
+from concurrent.futures import thread
 
 from BoardRepresenter import BoardRepresenter
 from PopulationGenerator import PopulationGenerator
@@ -61,9 +63,19 @@ class DifferentialEvolution:
     def solve(self):
         startTime = time.time()
         solutions = self.findSolutions()
+        numOfThreads = 1
+        for i in range(4,11):
+            if self.numOfIterations % i:
+                numOfThreads = i
+        threads = []
         while len(solutions) == 0 and self.iteration < self.numOfIterations and time.time()-startTime < self.timeLimit:
             solutions = self.findSolutions()
-            self.iterate()
+            # self.iterate()
+            for i in range(0, numOfThreads):
+                threads.insert(i, threading.Thread(self.iterate()))
+                threads[i].start()
+            for t in threads:
+                t.join()
             self.iteration += 1
         print(len(solutions),"soultion(s) found in", round(time.time()-startTime,4),"s and", self.iteration, "iterations.")
         for i in solutions:
