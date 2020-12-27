@@ -1,14 +1,11 @@
-import random
-import time
-
 from DifferentialEvolution import DifferentialEvolution
 
-numOfIterations = 1000
-CR = .8
+numOfIterations = 15000
+CR = 0.25
 F = 1
-timeLimit = 30
+timeLimit = 10*60
 N = int(input("Enter number of queens\n"))
-population = N * 10
-print("CR =", CR, "F =", F)
-solver = DifferentialEvolution(numOfIterations, CR, F, N, population, timeLimit)
+NP = N * 10
+print("CR =", CR, "F =", F, "NP =", NP)
+solver = DifferentialEvolution(numOfIterations, CR, F, N, NP, timeLimit)
 solver.solve()
