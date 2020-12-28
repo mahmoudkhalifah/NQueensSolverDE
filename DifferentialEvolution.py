@@ -42,8 +42,10 @@ class DifferentialEvolution:
             mutant[i] = p3[i] + self.F * (p1[i] - p2[i])
         return self.crossover(p4, mutant)
 
-    def iterate(self):
-        for i in range(self.NP):
+    def iterate(self,start,end):
+        i = start
+        j = end
+        for i in range(j):
             p4 = self.pg.NPvectors[i]
             [p1, p2, p3] = random.sample(self.pg.NPvectors, 3)
             while p1 == p4 or p2 == p4 or p3 == p4:
@@ -69,7 +71,7 @@ class DifferentialEvolution:
         threads = []
         while len(solutions) == 0 and self.iteration < self.numOfIterations and time.time()-startTime < self.timeLimit:
             for i in range(0, numOfThreads):
-                threads.insert(i, threading.Thread(self.iterate()))
+                threads.insert(i, threading.Thread(self.iterate((i*self.dim)%self.NP,(i*self.dim+self.dim)%self.NP)))
                 threads[i].start()
             for t in threads:
                 t.join()
