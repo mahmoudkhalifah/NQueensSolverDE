@@ -64,10 +64,7 @@ class DifferentialEvolution:
     def solve(self):
         startTime = time.time()
         solutions = self.findSolutions()
-        numOfThreads = 1
-        for i in range(4,11):
-            if self.numOfIterations % i:
-                numOfThreads = i
+        numOfThreads = 10
         threads = []
         while len(solutions) == 0 and self.iteration < self.numOfIterations and time.time()-startTime < self.timeLimit:
             for i in range(0, numOfThreads):
