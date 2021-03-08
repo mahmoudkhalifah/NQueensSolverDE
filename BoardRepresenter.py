@@ -4,11 +4,19 @@ class BoardRepresenter:
         self.dim = dim
 
     # initialize the board matrix based on vector
+
+    # def boardRepresent(self):
+    #     self.board = [[0 for i in range(self.dim)] for j in range(self.dim)]
+    #     for i in self.vector:
+    #         self.board[self.vector[i]][i] = 1
+    #         print(i)
+    
     def boardRepresent(self):
         self.board = [[0 for i in range(self.dim)] for j in range(self.dim)]
-        for i in self.vector:
+        for i in range(self.dim):
             self.board[self.vector[i]][i] = 1
-
+            # print(i)
+    
     # return number of mistakes to every single queen
     def isSafe(self, row, col):
         penalty = 0

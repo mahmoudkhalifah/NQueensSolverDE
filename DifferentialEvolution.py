@@ -22,7 +22,13 @@ class DifferentialEvolution:
 
     def crossover(self, p4, mutant) -> list:
         trial = [0] * self.dim
-        for i in range(self.dim):
+        if mutant[0] > self.dim-1:
+            trial[0] = self.dim-1
+        elif mutant[0] < 0:
+            trial[0] = 0
+        else:
+            trial[0] = mutant[0]
+        for i in range(1,self.dim):
             # if random.random() < self.CR and not mutant[i] >= self.dim and not mutant[i] < 0:
             #     trial[i] = round(int(mutant[i]))
             if random.random() < self.CR:
@@ -31,7 +37,7 @@ class DifferentialEvolution:
                 elif mutant[i] < 0:
                     trial[i] = 0
                 else:
-                    trial[i] = round(int(mutant[i]))
+                    trial[i] = round(mutant[i])
             else:
                 trial[i] = p4[i]
         return trial
